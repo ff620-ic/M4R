@@ -12,7 +12,7 @@ The program logs performance metrics in real-time and saves all iteration data i
 
 | File | Content |
 | -- | -- |
-| best_elite_rewards.txt | what is this|
+| best_elite_rewards.txt | Mean reward of best sessions |
 | reinforce_loss.txt | Reinforcement loss value per iteration  |
 | best_species_pickle.txt | Best super sessions saved using `pickle`  | 
 | best_species_txt.txt | Best graph per iteration |
@@ -30,8 +30,8 @@ The code is compatible with standard personal computers, though GPU acceleration
 | Learning rate | 0.001 |
 | Weight decay | 1e-5 |
 | Patience of scheduler | 5 |
-| Percentage of elite sessions | 90 |
-| Percentage of super sessions | 94 |
+| Percentage of elite sessions (100-$\alpha$) | 90 |
+| Percentage of super sessions (100-$\gamma$) | 94 |
 | Number of sessions | 1000 |
 | Output dimension of Embedding | 64 |
 | Hidden dimension of GNNStack | 128 |
