@@ -12,7 +12,6 @@ The program logs performance metrics in real-time and saves all iteration data i
 
 | File | Content |
 | -- | -- |
-| best_elite_rewards.txt | Mean reward of best sessions |
 | reinforce_loss.txt | Reinforcement loss value per iteration  |
 | best_species_pickle.txt | Best super sessions saved using `pickle`  | 
 | best_species_txt.txt | Best graph per iteration |
@@ -21,6 +20,7 @@ The program logs performance metrics in real-time and saves all iteration data i
 | best_elite_rewards.txt | Mean reward of super sessions for each iteration |
 | worst_reward.txt | Reward of worst session per iteration |
 | worst_actions.txt | Corresponding graph of worst session per iteration |
+| counterexample.txt | the final counterexample graph construction |
 
 ## Executing
 The code is compatible with standard personal computers, though GPU acceleration is recommended for performance speed-up. Using the default hyperparameters, convergence typically occurs within several hours to discover counterexamples.
