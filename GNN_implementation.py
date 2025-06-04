@@ -96,12 +96,10 @@ def Wagner_to_GNN(W_vectors, N, order=lexi_order):
     n_sessions = len(W_vectors)  
     feature_len = W_vectors.shape[1]  
     midpoint = feature_len // 2  
-    
-    # Split the vectors  
     state = W_vectors[:, :midpoint]  
     indicator = W_vectors[:, midpoint:]  
     
-    # Initialize structures  
+    # Initialization 
     edge_list = [[[], []] for _ in range(n_sessions)]  
     edge2predict = np.empty((n_sessions, 2))  
     
@@ -109,7 +107,6 @@ def Wagner_to_GNN(W_vectors, N, order=lexi_order):
     ij_pairs = order
     
     for count, (i, j) in enumerate(ij_pairs):  
-        # Vectorize the session loop - get all sessions where this edge exists  
         edge_sessions = np.where(state[:, count] == 1)[0]  
         predict_sessions = np.where(indicator[:, count] == 1)[0]  
         
@@ -118,11 +115,11 @@ def Wagner_to_GNN(W_vectors, N, order=lexi_order):
             edge_list[k][0].extend([i, j])  
             edge_list[k][1].extend([j, i])  
             
-        # Set next pairs of edges to predict  
+        # Next pairs of edges to predict  
         for k in predict_sessions:  
             edge2predict[k] = np.array([i, j])  
     
-    # Convert to tensors 
+    # Tensors 
     edge_torch_list = [torch.tensor(edge_list[k], dtype=torch.long) for k in range(n_sessions)]  
     
     return edge_torch_list, torch.tensor(edge2predict)  
@@ -271,12 +268,11 @@ def reinforce_games(
     Given sessions of elites, reinforce each move in each session.  
     Modified to be compatible with GNN-based models.  
     """  
-    # Put model in training mode  
+    # Training mode  
     gnn.train() 
     linkpred.train()
     
-    
-    # Convert to PyTorch tensors if they aren't already  
+    # Convert to PyTorch tensors
     if not isinstance(states, torch.Tensor):  
         states = torch.tensor(states, dtype=torch.float32)  
     if not isinstance(actions, torch.Tensor):  
@@ -285,11 +281,8 @@ def reinforce_games(
     # Random permutation for batch training  
     n_samples = states.shape[0]  
     shuffle = torch.randperm(n_samples)  
-    
     # Loss function  
     criterion = nn.BCELoss()  
-    
-    # Track total loss  
     total_loss = 0  
     num_batches = 0  
     
@@ -304,16 +297,13 @@ def reinforce_games(
         optimiser.zero_grad()  
         batch_states = states[batch_indices]  
         
-        # Get predictions as tensor with gradients  
+        # Get predictions
         predicted = predict_edges(gnn, linkpred, batch_states, emb) 
         
-        # Ensure predictions are tensor  
+        # Ensure predictions are tensor, gradient enabled 
         if not isinstance(predicted, torch.Tensor):  
-            predicted = torch.tensor(predicted, dtype=torch.float32, requires_grad=True)  
-        # Ensure batch_actions has the right shape  
+            predicted = torch.tensor(predicted, dtype=torch.float32, requires_grad=True)   
         batch_actions = actions[batch_indices]  
-        
-        # Compute loss  
         loss = criterion(predicted, batch_actions)  
         
         # Backpropagate and update weights  
@@ -322,10 +312,9 @@ def reinforce_games(
         total_loss += loss.item()  
         num_batches += 1  
     
-    # Set model back to evaluation mode  
+    # Evaluation mode  
     gnn.eval()  
     linkpred.eval()
-    # Return average loss  
     return total_loss / num_batches, emb 
 
 
