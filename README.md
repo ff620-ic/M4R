@@ -1,5 +1,5 @@
 # M4R--GNN
-
+The whole algorithm is inspired by [Wagner's paper](https://arxiv.org/pdf/2104.14516)
 ## Dependencies
 The project dependencies are specified in `requirements.txt`. The implementation relies heavily on PyTorch Geometric (`torch_geometric`) for Graph Neural Network construction and training. To set up the conda environment run:
 
