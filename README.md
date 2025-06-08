@@ -1,4 +1,4 @@
-# M4R--GNN
+# Enhancing the Construction of Combinatorial Counterexamples Using Graph Neural Networks
 The complete algorithm is inspired by [Wagner's paper](https://arxiv.org/pdf/2104.14516). We mainly changed the model and training function while kept others the same as [Wagner's code](https://github.com/zawagner22/cross-entropy-for-combinatorics/blob/main/demos/cem_binary_conj21.py).
 ## Dependencies
 The project dependencies are specified in `requirements.txt`. The implementation relies heavily on PyTorch Geometric (`torch_geometric`) for Graph Neural Network construction and training. To set up the conda environment run:
