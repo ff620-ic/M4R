@@ -30,8 +30,8 @@ The code is compatible with standard personal computers, though GPU acceleration
 | Learning rate | 0.001 |
 | Weight decay | 1e-5 |
 | Patience of scheduler | 5 |
-| Percentage of elite sessions (100-α) | 90 |
-| Percentage of super sessions (100-γ) | 94 |
+| α, (percentage of elite sessions = 100-α) | 90 |
+| γ, (percentage of super sessions = 100-γ) | 94 |
 | Number of sessions | 1000 |
 | Output dimension of Embedding | 64 |
 | Hidden dimension of GNNStack | 128 |
